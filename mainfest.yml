@@ -1,0 +1,5 @@
+applications:
+- name: happi
+  command: "nodemon ./dist/server.js"
+  instances: 1
+  memory: 128M

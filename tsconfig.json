@@ -1,19 +1,27 @@
 {
-  "compilerOptions": {                 
-    "target": "es6",                          
-    "module": "commonjs",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "strict": true,
     "pretty": true,
     "sourceMap": false,
-    "outDir": "./dist",
-    "baseUrl": "./lib",
+    "outDir": "dist",
+    "baseUrl": "src",    
+    "importHelpers": true,
+    "moduleResolution": "node",
     /* Advanced Options */
     "skipLibCheck": false,             
     "forceConsistentCasingInFileNames": true  
   },
+  "paths": {
+    "@/*": [
+      "src/*"
+    ]
+  },
   "include": [
-    "./lib/**/*.ts"
+    "src/**/*.ts"
   ],
   "exclude":[
-    "./node_modules"
+    "node_modules"
   ]
 }

@@ -5,9 +5,14 @@
     ]
   },
   "defaultSeverity": "error",
+  "deprecation": {
+    "severity": "warn"
+  },
   "extends": [
     "tslint:recommended"
   ],
+  "forin": true,
+  "forof": true,
   "jsRules": {},
   "rules": {
     "ordered-imports": false,
