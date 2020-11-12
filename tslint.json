@@ -1,0 +1,24 @@
+{
+  "linterOptions": {
+    "exclude": [
+      "node_modules"
+    ]
+  },
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "ordered-imports": false,
+    "comment-format": false,
+    "eofline": false,
+    "object-literal-sort-keys": false,
+    "no-console": false,
+    "no-var-requires": false,
+    "variable-name": {
+      "options": "allow-leading-underscore"
+    }
+  },
+  "rulesDirectory": []
+}

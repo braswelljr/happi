@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {                 
+    "target": "es6",                          
+    "module": "commonjs",
+    "pretty": true,
+    "sourceMap": false,
+    "outDir": "./dist",
+    "baseUrl": "./lib",
+    /* Advanced Options */
+    "skipLibCheck": false,             
+    "forceConsistentCasingInFileNames": true  
+  },
+  "include": [
+    "./lib/**/*.ts"
+  ],
+  "exclude":[
+    "./node_modules"
+  ]
+}
