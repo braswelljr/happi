@@ -4,7 +4,7 @@
       "node_modules"
     ]
   },
-  "defaultSeverity": "error",
+  "defaultSeverity": "warn",
   "deprecation": {
     "severity": "warn"
   },
@@ -21,6 +21,7 @@
     "object-literal-sort-keys": false,
     "no-console": false,
     "no-var-requires": false,
+    "no-shadowed-variable": false,
     "variable-name": {
       "options": "allow-leading-underscore"
     }

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "esnext",
-    "module": "esnext",
+    "target": "es6",
+    "module": "commonjs",
     "strict": true,
     "pretty": true,
     "sourceMap": false,
@@ -10,7 +10,7 @@
     "importHelpers": true,
     "moduleResolution": "node",
     /* Advanced Options */
-    "skipLibCheck": false,             
+    "skipLibCheck": true,             
     "forceConsistentCasingInFileNames": true  
   },
   "paths": {
