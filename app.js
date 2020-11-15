@@ -1,6 +1,6 @@
-import { error } from 'console';
-import * as express from "express";
-import * as logger from 'morgan';
+const express = require("express");
+const logger = require('morgan');
+const {api, middleware} = require('./router/index');
 
 const app = express();
 
@@ -27,21 +27,29 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(`/`, (req, res, next): void => {
+app.use(`/`, (req, res)=> {
   res.status(200).json({
     message: `Welcome to the ${process.env.APP_NAME}`
-  })
+  });
 });
 
-app.use((req, res, next): void => {
-  const error: any = new Error("Not found");
+
+//api router
+api.forEach((index) =>
+  app.use(`/api/${index}`, require(`./routes/api/${index}`)));
+
+//web router
+middleware.forEach((index) =>
+  app.use(`/${index.name}`,require(`./routes/middleware/${index.route}`)));
+
+app.use('/',(req, res, next)=> {
+  const error = new Error("Not found");
   error.status = 404;
   next(error);
 });
 
-app.use(( req, res, next): void => {
-  res.status((error as any) || 500);
-  res.json({
+app.use(( req, res) => {
+  res.status(500).json({
     message: ''
   })
 });
