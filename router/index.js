@@ -1,12 +1,5 @@
 const api = [
-  '/'
+  'product'
 ]
 
-const middleware = [
-  { name:'', route:'index' },
-]
-
-module.exports = {
-  api,
-  middleware
-}
+module.exports = api

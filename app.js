@@ -1,17 +1,18 @@
+const createError = require('http-errors');
 const express = require("express");
+const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const {api, middleware} = require('./router/index');
+const api  = require('./router');
 
 const app = express();
 
 // log incoming request to server
 app.use(logger('dev'));
-
 // support application/json type post data
 app.use(express.json());
-
 // create application/x-www-form-urlencoded parser
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 
 app.use((req, res, next) => {
   res.header("Access-Control-Allow-Origin", "*");
@@ -27,31 +28,27 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(`/`, (req, res)=> {
+app.get('/',(req, res) => {
   res.status(200).json({
     message: `Welcome to the ${process.env.APP_NAME}`
-  });
-});
-
+  })
+})
 
 //api router
-api.forEach((index) =>
-  app.use(`/api/${index}`, require(`./routes/api/${index}`)));
+api.forEach(index => app.use(`/api/${index}`, require(`./router/api/${index}`)));
 
-//web router
-middleware.forEach((index) =>
-  app.use(`/${index.name}`,require(`./routes/middleware/${index.route}`)));
+// catch 404 and forward to error handler
+app.use((req, res, next) => next(createError(404)) );
 
-app.use('/',(req, res, next)=> {
-  const error = new Error("Not found");
-  error.status = 404;
-  next(error);
-});
+// error handler
+app.use((err, req, res) => {
+  // set locals, only providing error in development
+  res.locals.message = err.message;
+  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-app.use(( req, res) => {
-  res.status(500).json({
-    message: ''
-  })
+  // render the error page
+  res.status(err.status || 500);
+  res.render('error');
 });
 
 module.exports = app
