@@ -30,16 +30,22 @@ router.post('/signup', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-  const user = {
-    email: req.body.email,
-    password: req.body.password
-  };
-
-  res.status(200).json({ message: `User login`, user: user });
+  User.findOne({ email: req.body.email }).exec().then(account => {
+      account
+      ? bcrypt.compare(req.body.password, account.password, (error, result) => {
+        error 
+        ? res.status(401).json({ message: `Authentication failed`, error: error })
+        : result === true
+          ? res.status(200).json({ message: `Authentication Successful`, result: result, account: account })
+          : res.status(401).json({ message: `Authentication failed`, error: error })
+      }) 
+      : res.status(401).json({ message: `Authentication failed`, account: account });
+    })
+    .catch(error => res.status(500).json({ message: `Oops something happened`, error: error }));
 });
 
-router.delete('/:userid', (req, res) => {
-  User.remove({ email: req.params.userid }).exec()
+router.delete('/:id', (req, res) => {
+  User.deleteOne({ _id: req.params.id }).exec()
     .then( account => res.status(200).json({ message: `Account deleted successfully`, account }) )
     .catch( error => res.status(500).json({ message: `Something happened`, error: error }) );
 });
