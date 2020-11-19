@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
 });
 
 router.post('/signup', (req, res) => {
-  User.find({ email: req.body.email }).exec().then( account => {
+  User.findOne({ email: req.body.email }).exec().then( account => {
     account
     ? res.status(400).json({ message: `User exist!` })
     : bcrypt.hash(req.body.password, 10, (error, hash) => {
@@ -35,7 +35,7 @@ router.post('/login', (req, res) => {
     password: req.body.password
   };
 
-  res.send(200).json({ message: `User login`, user: user });
+  res.status(200).json({ message: `User login`, user: user });
 });
 
 router.delete('/:userid', (req, res) => {
