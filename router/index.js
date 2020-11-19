@@ -1,5 +1,5 @@
 const api = [
-  'product'
-]
+  'user'
+];
 
 module.exports = api

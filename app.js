@@ -1,10 +1,12 @@
-const createError = require('http-errors');
 const express = require("express");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const dotenv = require('dotenv');
 const api  = require('./router');
 
 const app = express();
+
+dotenv.config();
 
 // log incoming request to server
 app.use(logger('dev'));
@@ -22,11 +24,14 @@ app.use((req, res, next) => {
   );
   if(req.method === 'OPTIONS') {
     res.header("Access-Control-Allow-Methods", "PUT, POST, PATCH, DELETE, GET");
-    return res.status(200).json({});
+    return res.sendStatus(200).json({});
   }
 
   next();
 });
+
+// connnect application to database
+require('./database');
 
 app.get('/',(req, res) => {
   res.status(200).json({
@@ -38,7 +43,9 @@ app.get('/',(req, res) => {
 api.forEach(index => app.use(`/api/${index}`, require(`./router/api/${index}`)));
 
 // catch 404 and forward to error handler
-app.use((req, res, next) => next(createError(404)) );
+app.use((req, res) => {
+  res.sendStatus(404)
+});
 
 // error handler
 app.use((err, req, res) => {
@@ -47,7 +54,7 @@ app.use((err, req, res) => {
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
   // render the error page
-  res.status(err.status || 500);
+  res.sendStatus(err.status || 500);
   res.render('error');
 });
 

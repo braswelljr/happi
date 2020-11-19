@@ -4,10 +4,13 @@
   "description": "Nodejs Typescript api",
   "main": "server.js",
   "directories": {
-    "lib": "lib"
+    "router": "router",
+    "database": "database",
+    "api": "router/api",
+    "tests": "tests",
+    "middleware": "middleware"
   },
   "scripts": {
-    "build": "tsc --watch",
     "start": "node",
     "serve": "nodemon"
   },
@@ -26,15 +29,13 @@
   },
   "homepage": "https://github.com/braswelljr/happi#readme",
   "dependencies": {
+    "bcrypt": "^5.0.0",
+    "cookie-parser": "^1.4.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "http-errors": "^1.7.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.10.15",
     "morgan": "^1.10.0",
-    "nodemon": "^2.0.6",
-    "typescript": "^4.0.5",
-    "uuid": "^8.3.1"
-  },
-  "devDependencies": {
-    "cookie-parser": "^1.4.5"
+    "nodemon": "^2.0.6"
   }
 }
