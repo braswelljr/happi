@@ -31,10 +31,26 @@ router.post('/signup', (req, res) => {
           password: hash
         });
         user.save()
-          .then( account => res.status(201).json({
-            message: `Signup Successful`,
-            user: account
-          }))
+          .then( account => {
+            const payload = {
+              _id : account._id,
+              firstname : account.firstname,
+              lastname : account.lastname,
+              username : account.username,
+              email : account.email,
+              phone : account.phone,
+              created_at : account.created_at
+
+            };
+            jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '2h' }, (err,token) => {
+              if (err) throw err;
+              res.status(200).json({
+                message: `Signup Successful`,
+                account: payload,
+                token: token
+              });
+            });
+          })
           .catch(error => res.status(500).json({
             message: `Oops Something went wrong`,
             error: error
@@ -62,7 +78,7 @@ router.post('/login', (req, res) => {
               lastname : account.lastname,
               username : account.username,
               email : account.email,
-              phone: account.phone
+              phone : account.phone
             };
             jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '2h' }, (err,token) => {
               if (err) throw err;
