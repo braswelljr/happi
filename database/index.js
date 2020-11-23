@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-require('dotenv').config()
 
 const dbname = process.env.DB_NAME || 'happi'
 const hostname = process.env.DB_HOST || 'localhost'

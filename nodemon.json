@@ -1,11 +1,12 @@
 {
   "env":{
-    "APP_NAME": "HAPPI-API",
+    "APP_NAME": "HAPPI",
     "PORT": "5000",
     "HOST": "localhost",
     "DB_NAME": "happi",
     "DB_PASSWORD": "",
     "DB_PORT": 27017,
-    "DB_HOST": "localhost"
+    "DB_HOST": "localhost",
+    "JWT_SECRET": "SecretKey"
   }
 }

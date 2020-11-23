@@ -1,7 +1,7 @@
 {
   "name": "happi",
   "version": "1.0.0",
-  "description": "Nodejs Typescript api",
+  "description": "Node Express API",
   "main": "server.js",
   "directories": {
     "router": "router",
@@ -12,15 +12,17 @@
   },
   "scripts": {
     "start": "node",
-    "serve": "nodemon"
+    "serve": "nodemon",
+    "dev": "nodemon -r dotenv/config"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/braswelljr/happi.git"
   },
   "keywords": [
-    "typescript",
-    "api"
+    "Node",
+    "Express",
+    "API"
   ],
   "author": "braswelljr",
   "license": "MIT",
@@ -29,6 +31,7 @@
   },
   "homepage": "https://github.com/braswelljr/happi#readme",
   "dependencies": {
+    "@types/node": "^14.14.9",
     "bcrypt": "^5.0.0",
     "body-parser": "^1.19.0",
     "cookie-parser": "^1.4.5",

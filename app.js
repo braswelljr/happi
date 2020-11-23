@@ -1,19 +1,16 @@
 const express = require("express");
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const dotenv = require('dotenv');
 const api  = require('./router');
 
 const app = express();
-
-dotenv.config();
 
 // log incoming request to server
 app.use(logger('dev'));
 // support application/json type post data
 app.use(express.json());
 // create application/x-www-form-urlencoded parser
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 
 app.use((req, res, next) => {
@@ -30,7 +27,7 @@ app.use((req, res, next) => {
   next();
 });
 
-// connnect application to database
+// connect application to database
 require('./database');
 
 app.get('/',(req, res) => {
@@ -48,8 +45,9 @@ app.use((req, res) => {
 });
 
 // error handler
-app.use((err, req, res) => {
+app.use((req, res) => {
   // set locals, only providing error in development
+  const err = new Error('Not Found');
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
