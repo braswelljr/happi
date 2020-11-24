@@ -3,7 +3,29 @@ const bcrypt = require('bcrypt');
 const User = require('./model/user');
 const mongoose = require('mongoose');
 const jwt = require('jsonwebtoken');
+const multer = require('multer');
 const router = express.Router();
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb){
+    cb(null, './router/api/uploads/');
+  },
+  filename: function (req, file, cb){
+    cb(null, new Date().toISOString().replace(/:/g, '-') + file.originalname);
+  }
+});
+
+const upload = multer({
+  storage: storage,
+  limit: {
+    fileSize: 1024 * 1024 * 5
+  },
+  fileFilter: (req, file, cb) => {
+    file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg' || file.mimetype === 'image/png'
+      ? cb(null, true)
+      : cb(null, false)
+  }
+});
 
 router.get('/', (req, res) => {
   res.json({
@@ -11,7 +33,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.post('/signup', (req, res) => {
+router.post('/signup', upload.single('image'), (req, res) => {
   User.findOne({ email: req.body.email }).exec()
     .then( account => {
       account
@@ -23,6 +45,7 @@ router.post('/signup', (req, res) => {
         });
         const user = new User({
           _id: new mongoose.Types.ObjectId,
+          image: req.file.path,
           firstname: req.body.firstname,
           lastname: req.body.lastname,
           username: req.body.username,
@@ -34,13 +57,13 @@ router.post('/signup', (req, res) => {
           .then( account => {
             const payload = {
               _id : account._id,
+              image: account.image,
               firstname : account.firstname,
               lastname : account.lastname,
               username : account.username,
               email : account.email,
               phone : account.phone,
               created_at : account.created_at
-
             };
             jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '2h' }, (err,token) => {
               if (err) throw err;
@@ -59,7 +82,7 @@ router.post('/signup', (req, res) => {
   });
 });
 
-router.post('/login', (req, res) => {
+router.post('/login', upload.none(), (req, res) => {
   User.findOne({ email: req.body.email }).exec()
     .then(account => {
       account
@@ -74,6 +97,7 @@ router.post('/login', (req, res) => {
           if(result === true){
             const payload = {
               _id : account._id,
+              image: account.image,
               firstname : account.firstname,
               lastname : account.lastname,
               username : account.username,

@@ -10,7 +10,7 @@ app.use(logger('dev'));
 // support application/json type post data
 app.use(express.json());
 // create application/x-www-form-urlencoded parser
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.use((req, res, next) => {

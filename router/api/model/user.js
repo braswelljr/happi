@@ -4,6 +4,10 @@ const Schema = mongoose.Schema;
 
 const UserSchema = new Schema({
   _id: Schema.Types.ObjectId,
+  image: {
+    type: String,
+    required: false
+  },
   firstname: {
     type: String,
     required: 'Enter a first name'
