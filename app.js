@@ -7,6 +7,8 @@ const app = express();
 
 // log incoming request to server
 app.use(logger('dev'));
+// serve static files
+app.use('/uploads/users', express.static('router/api/uploads/users'));
 // support application/json type post data
 app.use(express.json());
 // create application/x-www-form-urlencoded parser
