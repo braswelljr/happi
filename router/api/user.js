@@ -131,10 +131,22 @@ router.post('/login', upload.none(), (req, res) => {
     }));
 });
 
-router.patch('/update/:id', (req, res) => {
-  res.json({
-    message: `Update User Info`
-  });
+router.patch('/update/:id', upload.single("image"), (req, res) => {
+  User.findOneAndUpdate({ _id: req.params.id }, req.body, { new: true }).exec()
+    .then(account => {
+      account
+      ? res.status(200).json({
+        message: `Account Updated Successfully`,
+        account: account
+      })
+      : res.status(403).json({
+        message: `Account Update Unuccessful`
+      });
+    })
+    .catch(error => res.status(500).json({
+      message: `Oops something happened`,
+      error: error
+    }));
 });
 
 router.delete('/delete/:id', (req, res) => {

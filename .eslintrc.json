@@ -1,13 +1,29 @@
 {
   "env": {
-    "browser": true,
-    "node": true,
     "es6": true,
-    "es2021": true
+    "browser": true,
+    "node": true
   },
-  "extends": "eslint:recommended",
   "parserOptions": {
-    "ecmaVersion": 12
+    "ecmaVersion": 2020,
+    "sourceType": "module"
   },
-  "rules": {}
+  "plugins": [
+    "eslint",
+    "prettier"
+  ],
+  "extends": [
+    "plugin:eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "no-debugger": "off",
+    "no-console": "off",
+    "no-multi-spaces": "warn",
+    "no-unused-vars": "warn",
+    "indent": [
+      "warn",
+      2
+    ]
+  }
 }
