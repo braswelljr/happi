@@ -104,7 +104,7 @@ router.post('/login', upload.none(), (req, res) => {
               email : account.email,
               phone : account.phone
             };
-            jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '2h' }, (err,token) => {
+            jwt.sign(payload, process.env.JWT_KEY, { expiresIn: '1 day' }, (err,token) => {
               if (err) throw err;
               res.status(200).json({
                 message: `Authentication Successful`,
@@ -137,7 +137,16 @@ router.patch('/update/:id', upload.single("image"), (req, res) => {
       account
       ? res.status(200).json({
         message: `Account Updated Successfully`,
-        account: account
+        user: {
+          _id : account._id,
+          image: account.image,
+          firstname : account.firstname,
+          lastname : account.lastname,
+          username : account.username,
+          email : account.email,
+          phone : account.phone
+        },
+        updated_at:  new Date().toISOString()
       })
       : res.status(403).json({
         message: `Account Update Unuccessful`
