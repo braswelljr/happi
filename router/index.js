@@ -1,5 +1,6 @@
 const api = [
-  'user'
+  "user",
+  "admin"
 ];
 
 module.exports = api

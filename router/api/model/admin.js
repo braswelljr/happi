@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const Admin = new Schema({
+const AdminSchema = new Schema({
   _id: Schema.Types.ObjectId,
   image: {
     type: String,
@@ -40,4 +40,8 @@ const Admin = new Schema({
     type: Date,
     default: Date.now
   }
-}, { collation: "admin" });
+}, { collection: "admin" });
+
+const Admin = mongoose.model('Admin', AdminSchema);
+
+module.exports = Admin
