@@ -1,12 +1,11 @@
 {
   "env": {
-    "es6": true,
-    "browser": true,
-    "node": true
+    "es2021": true,
+    "node": true,
+    "commonjs": true
   },
   "parserOptions": {
-    "ecmaVersion": 2020,
-    "sourceType": "module"
+    "ecmaVersion": 2021
   },
   "plugins": [
     "eslint",
@@ -24,6 +23,17 @@
     "indent": [
       "warn",
       2
+    ],
+    "prettier/prettier": [
+      "warn",{
+        "endOfLine": "auto",
+        "trailingComma": "none",
+        "printWidth": 80,
+        "tabWidth": 2, 
+        "semi": true, 
+        "singleQuote": false,
+        "bracketSpacing": true
+      }
     ]
   }
 }
