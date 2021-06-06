@@ -1,6 +1,3 @@
-const api = [
-  "user",
-  "admin"
-];
+const api = ['user', 'admin']
 
 module.exports = api
